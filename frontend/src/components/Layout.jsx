@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, Menu, X, ArrowUp, Phone, Mail, MapPin, AlertCircle } from "lucide-react";
+import { Home, Menu, X, ArrowUp, Phone, Mail, MapPin, AlertCircle, MessageCircle } from "lucide-react";
 import { navLinks } from "../mock";
 
 const Layout = ({ children }) => {
@@ -167,6 +167,17 @@ const Layout = ({ children }) => {
           <ArrowUp size={20} />
         </div>
       )}
+
+      {/* Floating WhatsApp */}
+      <a
+        href="https://wa.me/917985755455?text=Hi%2C%20I%20am%20interested%20in%20Court%20Marriage%20services%20in%20Lucknow."
+        target="_blank"
+        rel="noreferrer"
+        className="fixed bottom-6 left-6 z-40 bg-[#25D366] hover:bg-[#1fb954] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-105"
+        aria-label="Chat on WhatsApp"
+      >
+        <MessageCircle size={24} />
+      </a>
     </div>
   );
 };

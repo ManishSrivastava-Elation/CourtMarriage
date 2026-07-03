@@ -8,6 +8,7 @@ import Contact from "./pages/Contact";
 import Terms from "./pages/Terms";
 import Disclaimer from "./pages/Disclaimer";
 import Refund from "./pages/Refund";
+import CourtMarriage from "./pages/CourtMarriage";
 
 function App() {
   return (
@@ -17,8 +18,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/registration" element={<Registration />} />
+            <Route path="/court-marriage" element={<CourtMarriage />} />
             <Route path="/marriage-certificate" element={<Registration />} />
-            <Route path="/court-marriage" element={<Registration />} />
             <Route path="/aryasamaj-marriage" element={<Registration />} />
             <Route path="/divorce" element={<Registration />} />
             <Route path="/divorce-paper" element={<Registration />} />

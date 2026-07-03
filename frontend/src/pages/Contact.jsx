@@ -1,17 +1,27 @@
 import React, { useState } from "react";
-import { MapPin, Phone, Mail, MessageSquare, Send, CheckCircle2 } from "lucide-react";
+import axios from "axios";
+import { MapPin, Phone, Mail, MessageSquare, Send, CheckCircle2, XCircle, Loader2, MessageCircle } from "lucide-react";
+
+const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState({ state: "idle", msg: "" });
 
   const change = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    setSent(true);
-    setForm({ name: "", email: "", subject: "", message: "" });
-    setTimeout(() => setSent(false), 4500);
+    setStatus({ state: "loading", msg: "" });
+    try {
+      await axios.post(`${API}/contact`, form);
+      setStatus({ state: "success", msg: "" });
+      setForm({ name: "", email: "", subject: "", message: "" });
+      setTimeout(() => setStatus({ state: "idle", msg: "" }), 6000);
+    } catch (err) {
+      const msg = err.response?.data?.detail || err.message || "Failed to submit. Please try again.";
+      setStatus({ state: "error", msg });
+    }
   };
 
   return (
@@ -60,9 +70,14 @@ const Contact = () => {
             <p className="text-sm text-gray-500 mt-1">We will respond within 24 business hours (Mon-Sat).</p>
             <div className="section-underline mt-2" />
 
-            {sent && (
+            {status.state === "success" && (
               <div className="my-4 bg-green-50 border border-green-200 rounded-lg p-3 text-green-800 text-sm flex gap-2">
-                <CheckCircle2 size={18} /> Thank you! Your message has been recorded (demo).
+                <CheckCircle2 size={18} /> Thank you! Your message has been sent. We'll respond within 24 business hours.
+              </div>
+            )}
+            {status.state === "error" && (
+              <div className="my-4 bg-red-50 border border-red-200 rounded-lg p-3 text-red-800 text-sm flex gap-2">
+                <XCircle size={18} /> {status.msg}
               </div>
             )}
 
@@ -83,8 +98,18 @@ const Contact = () => {
                 <label className="label-text">Message</label>
                 <textarea required rows={5} value={form.message} onChange={change("message")} className="input-field" placeholder="Write your message here..." />
               </div>
-              <div className="md:col-span-2">
-                <button type="submit" className="btn-primary">Send Message <Send size={16} /></button>
+              <div className="md:col-span-2 flex flex-wrap gap-3">
+                <button type="submit" disabled={status.state === "loading"} className={`btn-primary ${status.state === "loading" ? "opacity-60 cursor-not-allowed" : ""}`}>
+                  {status.state === "loading" ? <>Sending... <Loader2 size={16} className="animate-spin" /></> : <>Send Message <Send size={16} /></>}
+                </button>
+                <a
+                  href="https://wa.me/917985755455?text=Hi%2C%20I%20have%20a%20query%20about%20Court%20Marriage%20in%20Lucknow."
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1fb954] text-white font-semibold px-5 py-3 rounded-md transition-colors"
+                >
+                  <MessageCircle size={16} /> Chat on WhatsApp
+                </a>
               </div>
             </form>
           </div>

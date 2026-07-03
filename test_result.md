@@ -101,3 +101,132 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Court Marriage Lucknow website with registration and contact forms"
+
+backend:
+  - task: "GET /api/ - Root endpoint"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Root endpoint tested successfully. Returns correct message: 'Court Marriage Lucknow API'"
+
+  - task: "POST /api/registration - Valid payload"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Registration endpoint working correctly. Accepts valid payload with groom/bride nested objects, all persona fields, service, date_of_marriage, marriage_solemnized, and agreed=true. Returns 200 with Registration object containing id and created_at. Email send is properly skipped with dummy SMTP credentials without causing failures."
+
+  - task: "POST /api/registration - agreed=false validation"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Validation working correctly. Returns 400 with error message 'You must agree to the Terms of Service.' when agreed=false"
+
+  - task: "POST /api/contact - Valid payload"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Contact endpoint working correctly. Accepts valid payload with name, email, subject, message. Returns 200 with Contact object containing id and created_at. Email send is properly skipped with dummy SMTP credentials."
+
+  - task: "POST /api/contact - Invalid email validation"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Email validation working correctly. Returns 422 with proper validation error when invalid email is provided"
+
+  - task: "GET /api/registrations - List registrations"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "List registrations endpoint working correctly. Returns array of previously created registrations sorted by created_at descending"
+
+  - task: "GET /api/contacts - List contacts"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "List contacts endpoint working correctly. Returns array of previously created contacts sorted by created_at descending"
+
+  - task: "MongoDB persistence"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "MongoDB persistence verified. Created registration was successfully stored and retrieved from database. All data fields preserved correctly including nested groom/bride objects."
+
+frontend:
+  - task: "Frontend testing"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/App.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "Frontend testing not performed as per testing agent instructions (backend only)"
+
+metadata:
+  created_by: "testing_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "All backend endpoints tested and verified"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "testing"
+    message: "Backend testing completed successfully. All 8 API endpoints tested and working correctly. MongoDB persistence verified. Email functionality properly handles dummy SMTP credentials by skipping send without causing failures. All tests passed (8/8 - 100%). Backend is production-ready."

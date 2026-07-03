@@ -1,7 +1,24 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { AlertTriangle, CheckCircle2, ArrowRight } from "lucide-react";
+import axios from "axios";
+import { AlertTriangle, CheckCircle2, ArrowRight, XCircle, Loader2 } from "lucide-react";
 import { indianStates, religions } from "../mock";
+
+const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+
+const emptyPerson = {
+  full_name: "",
+  email: "",
+  mobile: "",
+  dob: "",
+  marital_status: "Married",
+  religion: "",
+  address_line1: "",
+  address_line2: "",
+  city: "",
+  state: "",
+  pin: "",
+};
 
 const SectionHead = ({ badge, title, subtitle }) => (
   <div className="flex items-start mb-5">
@@ -13,17 +30,97 @@ const SectionHead = ({ badge, title, subtitle }) => (
   </div>
 );
 
+const PersonFields = ({ person, onChange }) => (
+  <div className="grid md:grid-cols-2 gap-4">
+    <div>
+      <label className="label-text">Full Name</label>
+      <input className="input-field" placeholder="As per official ID" value={person.full_name} onChange={onChange("full_name")} />
+    </div>
+    <div>
+      <label className="label-text">Email ID</label>
+      <input type="email" className="input-field" placeholder="you@example.com" value={person.email} onChange={onChange("email")} />
+    </div>
+    <div>
+      <label className="label-text">Mobile Number</label>
+      <input className="input-field" placeholder="10-digit number" maxLength={10} value={person.mobile} onChange={onChange("mobile")} />
+    </div>
+    <div>
+      <label className="label-text">Date of Birth</label>
+      <input type="date" className="input-field" value={person.dob} onChange={onChange("dob")} />
+    </div>
+    <div>
+      <label className="label-text">Marital Status</label>
+      <select className="input-field" value={person.marital_status} onChange={onChange("marital_status")}>
+        <option>Married</option>
+        <option>Unmarried</option>
+        <option>Divorced</option>
+        <option>Widowed</option>
+      </select>
+    </div>
+    <div>
+      <label className="label-text">Religion</label>
+      <select className="input-field" value={person.religion} onChange={onChange("religion")}>
+        <option value="">Select...</option>
+        {religions.map((r) => (<option key={r}>{r}</option>))}
+      </select>
+    </div>
+    <div className="md:col-span-2 mt-2">
+      <div className="font-semibold text-sm text-[#1a2f57] mb-2">Current Address</div>
+      <div className="grid md:grid-cols-2 gap-4">
+        <input className="input-field" placeholder="Address Line 1 (House/Flat, Street)" value={person.address_line1} onChange={onChange("address_line1")} />
+        <input className="input-field" placeholder="Address Line 2 (Area, Landmark) - Optional" value={person.address_line2} onChange={onChange("address_line2")} />
+        <input className="input-field" placeholder="City / District" value={person.city} onChange={onChange("city")} />
+        <select className="input-field" value={person.state} onChange={onChange("state")}>
+          <option value="">Select State</option>
+          {indianStates.map((s) => (<option key={s}>{s}</option>))}
+        </select>
+        <input className="input-field" placeholder="PIN Code (6-digit)" maxLength={6} value={person.pin} onChange={onChange("pin")} />
+      </div>
+    </div>
+  </div>
+);
+
 const Registration = () => {
-  const [submitted, setSubmitted] = useState(false);
   const [agreed, setAgreed] = useState(false);
   const [alreadyMarried, setAlreadyMarried] = useState("Yes");
+  const [dateOfMarriage, setDateOfMarriage] = useState("");
+  const [groom, setGroom] = useState({ ...emptyPerson });
+  const [bride, setBride] = useState({ ...emptyPerson });
+  const [status, setStatus] = useState({ state: "idle", msg: "" });
 
-  const handleSubmit = (e) => {
+  const changePerson = (setter) => (key) => (e) => setter((p) => ({ ...p, [key]: e.target.value }));
+
+  const resetForm = () => {
+    setGroom({ ...emptyPerson });
+    setBride({ ...emptyPerson });
+    setDateOfMarriage("");
+    setAlreadyMarried("Yes");
+    setAgreed(false);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!agreed) return;
-    setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    setTimeout(() => setSubmitted(false), 5000);
+    setStatus({ state: "loading", msg: "" });
+    try {
+      const payload = {
+        service: "Court Marriage",
+        date_of_marriage: dateOfMarriage,
+        marriage_solemnized: alreadyMarried,
+        groom,
+        bride,
+        agreed,
+      };
+      const { data } = await axios.post(`${API}/registration`, payload);
+      setStatus({ state: "success", msg: `Request submitted. Reference ID: ${data.id}` });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      resetForm();
+      setTimeout(() => setStatus({ state: "idle", msg: "" }), 7000);
+    } catch (err) {
+      const msg = err.response?.data?.detail || err.message || "Something went wrong. Please try again.";
+      setStatus({ state: "error", msg });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   return (
@@ -37,7 +134,7 @@ const Registration = () => {
           <p className="text-white/85 text-sm max-w-4xl mt-2 leading-relaxed">
             This platform is intended solely for submitting a service request for administrative facilitation and counselling coordination related to marriage certificate and court marriage matters. The platform is operated by an independent private entity and does not provide legal advice, legal representation, or government services, and is not affiliated with, authorized by, or endorsed by any government department or authority.
           </p>
-          <h1 className="mt-6 text-3xl md:text-4xl font-bold">Marriage Certificate</h1>
+          <h1 className="mt-6 text-3xl md:text-4xl font-bold">Court Marriage / Marriage Certificate</h1>
           <p className="text-white/85 mt-2">Simplifying the Couple's Journey Through Counselling Facilitation</p>
         </div>
       </div>
@@ -45,12 +142,21 @@ const Registration = () => {
       <div className="max-w-7xl mx-auto px-4 py-10 grid lg:grid-cols-3 gap-8">
         {/* Form */}
         <div className="lg:col-span-2">
-          {submitted && (
+          {status.state === "success" && (
             <div className="mb-5 bg-green-50 border border-green-200 text-green-800 rounded-lg p-4 flex items-start gap-3">
               <CheckCircle2 className="text-green-600 mt-0.5" size={20} />
               <div>
-                <div className="font-semibold">Request submitted (demo)</div>
-                <div className="text-sm">This is a mocked demo submission. In production, your details would proceed to payment and verification.</div>
+                <div className="font-semibold">Request submitted successfully</div>
+                <div className="text-sm">{status.msg}. Our team will contact you within 24 business hours.</div>
+              </div>
+            </div>
+          )}
+          {status.state === "error" && (
+            <div className="mb-5 bg-red-50 border border-red-200 text-red-800 rounded-lg p-4 flex items-start gap-3">
+              <XCircle className="text-red-600 mt-0.5" size={20} />
+              <div>
+                <div className="font-semibold">Submission failed</div>
+                <div className="text-sm">{status.msg}</div>
               </div>
             </div>
           )}
@@ -62,11 +168,11 @@ const Registration = () => {
 
             <form onSubmit={handleSubmit} className="mt-6">
               {/* Marriage Details */}
-              <SectionHead badge={"1"} title="Marriage Details" subtitle="Provide the date your marriage was solemnized." />
+              <SectionHead badge={"1"} title="Marriage Details" subtitle="Provide the date your marriage was solemnized (if applicable)." />
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label className="label-text">Date of Marriage</label>
-                  <input type="date" className="input-field" />
+                  <input type="date" className="input-field" value={dateOfMarriage} onChange={(e) => setDateOfMarriage(e.target.value)} />
                   <div className="helper-text">Enter the date your marriage was solemnized (DD/MM/YYYY).</div>
                 </div>
                 <div>
@@ -93,15 +199,13 @@ const Registration = () => {
 
               <div className="h-px bg-gray-100 my-8" />
 
-              {/* Groom */}
               <SectionHead badge={"A"} title="Groom (Boy) Details" />
-              <PersonFields />
+              <PersonFields person={groom} onChange={changePerson(setGroom)} />
 
               <div className="h-px bg-gray-100 my-8" />
 
-              {/* Bride */}
               <SectionHead badge={"B"} title="Bride (Girl) Details" />
-              <PersonFields />
+              <PersonFields person={bride} onChange={changePerson(setBride)} />
 
               <div className="h-px bg-gray-100 my-8" />
 
@@ -120,13 +224,18 @@ const Registration = () => {
               <div className="mt-6 flex flex-wrap gap-3">
                 <button
                   type="submit"
-                  disabled={!agreed}
-                  className={`btn-primary ${!agreed ? "opacity-50 cursor-not-allowed" : ""}`}
+                  disabled={!agreed || status.state === "loading"}
+                  className={`btn-primary ${!agreed || status.state === "loading" ? "opacity-60 cursor-not-allowed" : ""}`}
                 >
-                  Submit Application <ArrowRight size={18} />
+                  {status.state === "loading" ? (
+                    <>Submitting... <Loader2 size={18} className="animate-spin" /></>
+                  ) : (
+                    <>Submit Application <ArrowRight size={18} /></>
+                  )}
                 </button>
                 <button
-                  type="reset"
+                  type="button"
+                  onClick={resetForm}
                   className="px-5 py-3 rounded-md border border-gray-300 text-gray-700 font-semibold hover:bg-gray-50 transition-colors"
                 >
                   Reset
@@ -146,7 +255,7 @@ const Registration = () => {
             {[
               { t: "1. Date of Marriage", d: "Enter the actual date when the marriage ceremony was performed in DD/MM/YYYY format." },
               { t: "2. Groom Details", d: "Enter the groom's full name as mentioned on Aadhaar / Passport. Groom must be at least 21 years old." },
-              { t: "3. Groom Address", d: "Enter complete current address including house/flat number, street, area, city, state and 6-digit PIN." },
+              { t: "3. Groom Address", d: "Enter complete current address including house/flat, street, area, city, state and 6-digit PIN." },
               { t: "4. Bride Details", d: "Enter the bride's full name as mentioned on Aadhaar / Passport. Bride must be at least 18 years old." },
               { t: "5. Bride Address", d: "Address details should be accurate for communication and processing purposes." },
               { t: "6. Before Submission", d: "Verify all names, mobile numbers, emails and dates. Tick the Terms checkbox before submitting." },
@@ -168,59 +277,5 @@ const Registration = () => {
     </div>
   );
 };
-
-const PersonFields = () => (
-  <div className="grid md:grid-cols-2 gap-4">
-    <div>
-      <label className="label-text">Full Name</label>
-      <input className="input-field" placeholder="As per official ID" />
-    </div>
-    <div>
-      <label className="label-text">Email ID</label>
-      <input type="email" className="input-field" placeholder="you@example.com" />
-    </div>
-    <div>
-      <label className="label-text">Mobile Number</label>
-      <input className="input-field" placeholder="10-digit number" maxLength={10} />
-    </div>
-    <div>
-      <label className="label-text">Date of Birth</label>
-      <input type="date" className="input-field" />
-    </div>
-    <div>
-      <label className="label-text">Marital Status</label>
-      <select className="input-field">
-        <option>Married</option>
-        <option>Unmarried</option>
-        <option>Divorced</option>
-        <option>Widowed</option>
-      </select>
-    </div>
-    <div>
-      <label className="label-text">Religion</label>
-      <select className="input-field">
-        <option value="">Select...</option>
-        {religions.map((r) => (
-          <option key={r}>{r}</option>
-        ))}
-      </select>
-    </div>
-    <div className="md:col-span-2 mt-2">
-      <div className="font-semibold text-sm text-[#1a2f57] mb-2">Current Address</div>
-      <div className="grid md:grid-cols-2 gap-4">
-        <input className="input-field" placeholder="Address Line 1 (House/Flat, Street)" />
-        <input className="input-field" placeholder="Address Line 2 (Area, Landmark) - Optional" />
-        <input className="input-field" placeholder="City / District" />
-        <select className="input-field">
-          <option value="">Select State</option>
-          {indianStates.map((s) => (
-            <option key={s}>{s}</option>
-          ))}
-        </select>
-        <input className="input-field" placeholder="PIN Code (6-digit)" maxLength={6} />
-      </div>
-    </div>
-  </div>
-);
 
 export default Registration;
