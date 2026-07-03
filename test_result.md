@@ -201,6 +201,18 @@ backend:
         agent: "testing"
         comment: "MongoDB persistence verified. Created registration was successfully stored and retrieved from database. All data fields preserved correctly including nested groom/bride objects."
 
+  - task: "SMTP Email Sending - Gmail Integration"
+    implemented: true
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "CRITICAL: Gmail SMTP authentication failing with error 535 'Username and Password not accepted'. Tested both /api/contact and /api/registration endpoints - both APIs work correctly (return 200) but email sending fails. Fixed SMTP_PASSWORD format (removed spaces: 'oclv toeq baxd lyfq' -> 'oclvtoeqbaxdlyfq'). However, Gmail still rejects the credentials. The App Password 'oclvtoeqbaxdlyfq' is INVALID or REVOKED. User must generate a NEW Gmail App Password for noreply@elationsoft.net account. Steps: 1) Enable 2FA on Gmail account, 2) Go to Google Account > Security > 2-Step Verification > App passwords, 3) Generate new 16-char app password, 4) Update SMTP_PASSWORD in /app/backend/.env (without spaces)."
+
 frontend:
   - task: "Frontend testing"
     implemented: true
@@ -217,16 +229,19 @@ frontend:
 metadata:
   created_by: "testing_agent"
   version: "1.0"
-  test_sequence: 1
+  test_sequence: 2
   run_ui: false
 
 test_plan:
   current_focus:
-    - "All backend endpoints tested and verified"
-  stuck_tasks: []
+    - "SMTP Email Sending - Gmail Integration (CRITICAL: Invalid App Password)"
+  stuck_tasks:
+    - "SMTP Email Sending - Gmail Integration"
   test_all: false
   test_priority: "high_first"
 
 agent_communication:
   - agent: "testing"
     message: "Backend testing completed successfully. All 8 API endpoints tested and working correctly. MongoDB persistence verified. Email functionality properly handles dummy SMTP credentials by skipping send without causing failures. All tests passed (8/8 - 100%). Backend is production-ready."
+  - agent: "testing"
+    message: "SMTP LIVE TEST COMPLETED - CRITICAL ISSUE FOUND: Gmail authentication is FAILING. Both /api/contact and /api/registration APIs work correctly (accept requests, return 200, save to DB), but email sending fails with SMTPAuthenticationError 535 'Username and Password not accepted'. I fixed the password format (removed spaces), but Gmail still rejects it. ROOT CAUSE: The Gmail App Password 'oclvtoeqbaxdlyfq' for noreply@elationsoft.net is INVALID or REVOKED. ACTION REQUIRED: User must generate a NEW Gmail App Password. Steps: 1) Ensure 2FA is enabled on noreply@elationsoft.net, 2) Go to Google Account > Security > 2-Step Verification > App passwords, 3) Generate new 16-character app password, 4) Update SMTP_PASSWORD in /app/backend/.env (enter without spaces as single string). Until this is fixed, emails will NOT be sent to manish@elationsoft.net."
