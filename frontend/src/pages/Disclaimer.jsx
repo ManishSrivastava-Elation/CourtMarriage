@@ -11,7 +11,7 @@ const Disclaimer = () => (
   >
     <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 text-sm text-amber-900">
       <b>Very Important: Private Platform  Not a Law Firm / Not a Government Website.</b>
-      MarriageCounselIndia.org is a private administrative facilitation and case-management platform. We are NOT a law firm, we do NOT provide legal advice, legal counselling, or legal representation, and we are NOT a government website.
+      courtmarriagelucknow.com is a private administrative facilitation and case-management platform. We are NOT a law firm, we do NOT provide legal advice, legal counselling, or legal representation, and we are NOT a government website.
     </div>
 
     <H>1. General Information Only (No Legal Advice)</H>
@@ -45,7 +45,7 @@ const Disclaimer = () => (
     <P>This Disclaimer shall be governed by the laws of India.</P>
 
     <H>11. Contact</H>
-    <P>For questions about this Disclaimer, contact us at <b>support@marriagecounselindia.org</b>.</P>
+    <P>For questions about this Disclaimer, contact us at <b>support@courtmarriagelucknow.com</b>.</P>
   </LegalPage>
 );
 

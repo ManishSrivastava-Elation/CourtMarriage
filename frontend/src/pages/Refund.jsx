@@ -31,7 +31,7 @@ const Refund = () => (
     <P>In unique and exceptional circumstances, at our sole discretion, we may offer a partial refund of up to 20% as a gesture of goodwill.</P>
 
     <H>5. How to Request a Refund</H>
-    <P>Send an email to <b>support@marriagecounselindia.org</b> from your registered email, with the subject "Refund Request  [Application ID]". Our team will respond within 24 business hours.</P>
+    <P>Send an email to <b>support@courtmarriagelucknow.com</b> from your registered email, with the subject "Refund Request  [Application ID]". Our team will respond within 24 business hours.</P>
 
     <H>6. Processing Time</H>
     <P>Approved refunds are processed within 715 business days to the original payment source.</P>

@@ -7,10 +7,10 @@ const P = ({ children }) => <p className="text-sm text-gray-700 leading-relaxed"
 const Terms = () => (
   <LegalPage
     title="Terms and Conditions of Service"
-    intro="Please read this document carefully. These Terms govern your use of the Platform and the administrative facilitation services provided by MarriageCounselIndia.org."
+    intro="Please read this document carefully. These Terms govern your use of the Platform and the administrative facilitation services provided by courtmarriagelucknow.com."
   >
     <P>
-      Welcome to <b>MarriageCounselIndia.org</b> (the "Platform"). These Terms and Conditions ("Terms") form a legally binding agreement between you ("User/Client") and the Company (Omvin) operating the Platform ("Company", "we", "us").
+      Welcome to <b>courtmarriagelucknow.com</b> (the "Platform"). These Terms and Conditions ("Terms") form a legally binding agreement between you ("User/Client") and the Company operating the Platform ("Company", "we", "us").
       By accessing the Platform, submitting a request, or using the Services, you confirm that you have read, understood, and agree to these Terms.
     </P>
 
@@ -20,7 +20,7 @@ const Terms = () => (
 
     <H>1. Definitions</H>
     <ul className="list-disc ml-6 text-sm text-gray-700 space-y-1">
-      <li><b>Company:</b> The private entity operating MarriageCounselIndia.org.</li>
+      <li><b>Company:</b> The private entity operating courtmarriagelucknow.com.</li>
       <li><b>Platform:</b> The website, forms, communications, and software systems operated by the Company.</li>
       <li><b>User/Client:</b> Any person who visits the Platform or requests Services.</li>
       <li><b>Lawyer:</b> An independent legal professional enrolled with a State Bar Council in India.</li>
@@ -90,12 +90,12 @@ const Terms = () => (
 
     <H>13. Governing Law / Jurisdiction</H>
     <P>
-      These Terms shall be governed by the laws of India. Courts at Jhunjhunu, Rajasthan / Dehradun, Uttarakhand shall have jurisdiction.
+      These Terms shall be governed by the laws of India. Courts at Lucknow, Uttar Pradesh shall have jurisdiction.
     </P>
 
     <H>14. Grievance / Contact</H>
     <P>
-      For support or grievances, contact us at <b>support@marriagecounselindia.org</b> / 0120-3134441.
+      For support or grievances, contact us at <b>support@courtmarriagelucknow.com</b> / 07985755455.
     </P>
   </LegalPage>
 );

@@ -29,20 +29,20 @@ const Contact = () => {
       <div className="max-w-7xl mx-auto px-4 py-12 grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-1 space-y-4">
           <div className="bg-white border border-gray-200 rounded-xl p-6">
-            <h3 className="text-lg font-bold text-[#1a2f57]">Contact Information (OMVIN)</h3>
+            <h3 className="text-lg font-bold text-[#1a2f57]">Contact Information</h3>
             <div className="section-underline mt-2" />
 
             <InfoRow icon={MapPin} title="Address">
-              Omvin, #3, Sagarkunj complex,<br />Chirawa, Jhunjhunu,<br />Rajasthan 333026
+              3, Kursi Rd, Tedhi Pulia,<br />Adil Nagar, Lucknow,<br />Uttar Pradesh 226022
             </InfoRow>
             <InfoRow icon={Phone} title="Phone">
-              <a href="tel:01203134441" className="text-[#ef7d1c] hover:underline">0120-3134441</a> <span className="text-gray-500 text-sm">(Office)</span>
+              <a href="tel:+917985755455" className="text-[#ef7d1c] hover:underline">07985755455</a> <span className="text-gray-500 text-sm">(Office)</span>
             </InfoRow>
             <InfoRow icon={Mail} title="Email">
-              <a href="mailto:support@marriagecounselindia.org" className="text-[#ef7d1c] hover:underline break-all">support@marriagecounselindia.org</a>
+              <a href="mailto:support@courtmarriagelucknow.com" className="text-[#ef7d1c] hover:underline break-all">support@courtmarriagelucknow.com</a>
             </InfoRow>
             <InfoRow icon={MessageSquare} title="Grievance Cell">
-              For official grievances, contact our Grievance Officer at <b>support@marriagecounselindia.org</b> with "Grievance" in the subject line.
+              For official grievances, contact our Grievance Officer at <b>support@courtmarriagelucknow.com</b> with "Grievance" in the subject line.
             </InfoRow>
           </div>
 

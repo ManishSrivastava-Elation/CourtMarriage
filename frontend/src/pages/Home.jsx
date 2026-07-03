@@ -25,10 +25,10 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 py-14 grid lg:grid-cols-3 gap-10 items-start">
           <div className="lg:col-span-2 fade-up">
             <h1 className="text-3xl md:text-4xl font-bold leading-tight">
-              Private Platform for fixing Appointment with Lawyers for Counselling related to Marriage certificate/Divorce/Marriage
+              Court Marriage in Lucknow  Appointment Facilitation with Independent Lawyers
             </h1>
             <p className="mt-5 text-white/85 leading-relaxed max-w-3xl">
-              Submit your request and pay a <b>Platform Facilitation Fee</b> for administrative coordination, verification, and scheduling support. If you <b>expressly request</b> it, we may facilitate coordination for an interaction with an <b>independent lawyer</b> (subject to availability and the lawyer's independent acceptance).
+              Submit your request and pay a <b>Platform Facilitation Fee</b> for administrative coordination, verification, and scheduling support for court marriage matters in Lucknow and across Uttar Pradesh. If you <b>expressly request</b> it, we may facilitate coordination for an interaction with an <b>independent lawyer</b> (subject to availability and the lawyer's independent acceptance).
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
@@ -46,7 +46,7 @@ const Home = () => {
             </div>
 
             <div className="mt-8 notice-box">
-              <b>Important:</b> MarriageCounselIndia.org is a <b>private platform</b>. We are <b>not a law firm</b> and do <b>not</b> provide legal advice, legal counselling, or legal representation. We do <b>not</b> represent any government authority and have <b>no</b> affiliation, authorization, or endorsement (direct or implied) with any government body. Any interaction with a lawyer (if facilitated) is with an <b>independent lawyer</b> directly and is based solely on your request and consent. The platform does <b>not</b> recommend, rank, select, assign, or guarantee any lawyer.
+              <b>Important:</b> courtmarriagelucknow.com is a <b>private platform</b>. We are <b>not a law firm</b> and do <b>not</b> provide legal advice, legal counselling, or legal representation. We do <b>not</b> represent any government authority and have <b>no</b> affiliation, authorization, or endorsement (direct or implied) with any government body. Any interaction with a lawyer (if facilitated) is with an <b>independent lawyer</b> directly and is based solely on your request and consent. The platform does <b>not</b> recommend, rank, select, assign, or guarantee any lawyer.
               <div className="mt-2 text-[13px]">
                 Read: <Link className="underline" to="/terms">Terms</Link>  <Link className="underline" to="/disclaimer">Disclaimer</Link>  <Link className="underline" to="/refund">Refund Policy</Link>
                 <span className="mx-2">|</span>
@@ -89,7 +89,7 @@ const Home = () => {
           <div className="bg-white rounded-xl border border-gray-200 p-6">
             <div className="flex items-center gap-2 text-[#1a2f57] font-bold text-lg"><Info size={20} className="text-[#ef7d1c]" /> What We Are</div>
             <p className="text-gray-700 mt-3 leading-relaxed text-sm">
-              Marriage Counsel India is a <b>private administrative facilitation platform</b> that assists users with request intake, basic verification, coordination, and appointment-scheduling support related to marriage-registration processes.
+              Court Marriage Lucknow is a <b>private administrative facilitation platform</b> based in Lucknow that assists couples with request intake, basic verification, coordination, and appointment-scheduling support related to court marriage and marriage-registration processes.
             </p>
             <p className="text-gray-700 mt-3 leading-relaxed text-sm">
               We are <b>not a law firm</b> and we do <b>not</b> provide legal advice, legal counselling, or legal representation. Our role is limited to <b>administrative coordination</b> to help users connect with an <b>independent lawyer</b>, strictly upon the user's request and subject to availability.

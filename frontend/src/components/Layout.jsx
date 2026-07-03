@@ -44,17 +44,17 @@ const Layout = ({ children }) => {
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#1a2f57] to-[#223e6b] flex items-center justify-center text-white font-bold text-lg">
-              MC
+              CM
             </div>
             <div className="leading-tight">
-              <div className="font-serif text-xl font-bold text-[#1a2f57]">Marriage Counsel</div>
-              <div className="text-[#ef7d1c] font-semibold text-sm border-t border-gray-300 pt-0.5">India</div>
+              <div className="font-serif text-xl font-bold text-[#1a2f57]">Court Marriage</div>
+              <div className="text-[#ef7d1c] font-semibold text-sm border-t border-gray-300 pt-0.5">Lucknow</div>
             </div>
           </Link>
 
           <div className="hidden md:block text-center">
-            <div className="text-[#1a2f57] font-bold text-base">India Private Platform for Marriage Counselling Facilitation</div>
-            <div className="text-gray-600 text-sm mt-1">भारत में विवाह-संबंधी काउंसलिंग सुविधा हेतु निजी मंच</div>
+            <div className="text-[#1a2f57] font-bold text-base">Lucknow Private Platform for Court Marriage Counselling Facilitation</div>
+            <div className="text-gray-600 text-sm mt-1">लखनऊ में कोर्ट मैरिज काउंसलिंग सुविधा हेतु निजी मंच</div>
           </div>
 
           <div className="md:hidden">
@@ -111,14 +111,14 @@ const Layout = ({ children }) => {
         <div className="max-w-7xl mx-auto px-4 py-10 grid md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#ef7d1c] to-[#d96c15] flex items-center justify-center text-white font-bold">MC</div>
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#ef7d1c] to-[#d96c15] flex items-center justify-center text-white font-bold">CM</div>
               <div>
-                <div className="font-serif text-white font-bold">Marriage Counsel India</div>
+                <div className="font-serif text-white font-bold">Court Marriage Lucknow</div>
                 <div className="text-xs text-gray-400">Private Facilitation Platform</div>
               </div>
             </div>
             <p className="text-sm leading-relaxed text-gray-400">
-              A private administrative facilitation platform that assists users with request intake, verification and appointment coordination.
+              A private administrative facilitation platform that assists couples in Lucknow with request intake, verification and appointment coordination for court marriage.
             </p>
           </div>
 
@@ -144,9 +144,9 @@ const Layout = ({ children }) => {
           <div>
             <h4 className="text-white font-semibold mb-3">Contact</h4>
             <ul className="space-y-2 text-sm text-gray-300">
-              <li className="flex gap-2"><MapPin size={16} className="text-[#ef7d1c] mt-0.5" /><span>Omvin, #3, Sagarkunj complex, Chirawa, Jhunjhunu, Rajasthan 333026</span></li>
-              <li className="flex gap-2"><Phone size={16} className="text-[#ef7d1c] mt-0.5" /><span>0120-3134441</span></li>
-              <li className="flex gap-2"><Mail size={16} className="text-[#ef7d1c] mt-0.5" /><span>support@marriagecounselindia.org</span></li>
+              <li className="flex gap-2"><MapPin size={16} className="text-[#ef7d1c] mt-0.5" /><span>3, Kursi Rd, Tedhi Pulia, Adil Nagar, Lucknow, Uttar Pradesh 226022</span></li>
+              <li className="flex gap-2"><Phone size={16} className="text-[#ef7d1c] mt-0.5" /><span>07985755455</span></li>
+              <li className="flex gap-2"><Mail size={16} className="text-[#ef7d1c] mt-0.5" /><span>support@courtmarriagelucknow.com</span></li>
             </ul>
           </div>
         </div>
@@ -157,7 +157,7 @@ const Layout = ({ children }) => {
               <AlertCircle size={14} className="mt-0.5 text-[#ef7d1c] flex-shrink-0" />
               <span>Private platform. Not a law firm. Not affiliated with any government body.</span>
             </div>
-            <div> {new Date().getFullYear()} MarriageCounselIndia.org  All rights reserved.</div>
+            <div> {new Date().getFullYear()} courtmarriagelucknow.com  All rights reserved.</div>
           </div>
         </div>
       </footer>
